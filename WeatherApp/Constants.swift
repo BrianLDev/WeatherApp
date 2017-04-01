@@ -8,6 +8,9 @@
 
 import Foundation
 
+typealias DownloadComplete = () -> ()
+// this tells our function that we have finished downloading (asynch calls)
+
 // original API web request = http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=3574f1c4a9c0a0e05bd3835b53574817
 
 let BASE_URL = "http://api.openweathermap.org/data/2.5/weather?"
