@@ -54,8 +54,36 @@ class CurrentWeather {
         let currentWeatherURL = URL(string: WEATHER_API_URL)!
         Alamofire.request(currentWeatherURL).responseJSON { response in
             let result = response.result
-            print(WEATHER_API_URL)
-            print(result)
+            
+            if let dict = result.value as? Dictionary<String, AnyObject> {
+                
+                // get city name
+                if let name = dict["name"] as? String! {
+                    self._cityName = name
+                }
+                print(self._cityName)
+                
+                // get weather type
+                if let weather = dict["weather"] as? [Dictionary<String, AnyObject>] {
+                    if let type = weather[0]["main"] as? String {
+                        self._weatherType = type
+                    }
+                    print(self._weatherType)
+                }
+                
+                // get current temp
+                if let main = dict["main"] as? Dictionary<String, AnyObject> {
+                    if let temp = main["temp"] as? Double {
+//                        let kelvinToFahrenheit = temp * 9/5 - 459.67  // not totally accurate
+                        let kelvinToFahrenheit = (9/5 * (temp-273)) + 32
+                        self._currentTemp = kelvinToFahrenheit
+                        print(self._currentTemp)
+                        print(temp * 9/5 - 459.67)
+                    }
+                }
+            }
+            
+
         }
         completed()
     }
