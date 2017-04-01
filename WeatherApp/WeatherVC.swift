@@ -22,6 +22,8 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        print(WEATHER_API_URL)
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
